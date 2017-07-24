@@ -22,7 +22,10 @@ class Index extends Component {
                     height: '100%'
                 }}
             >
-                <Page posts={require('../fixtures/feed.json')} />
+                <Page
+                    people={require('../fixtures/people.json')}
+                    posts={require('../fixtures/feed.json')}
+                />
             </div>
         );
     }

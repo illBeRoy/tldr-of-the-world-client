@@ -3,15 +3,18 @@ import React, {Component} from 'react';
 import {BoundingBox} from '../../../utils/layout';
 import {Header} from './header';
 import {Feed} from './feed';
+import {Following} from './following';
 
 
 class Page extends Component {
 
     static propTypes = {
+        people: React.PropTypes.people,
         posts: React.PropTypes.array
     };
 
     static defaultProps = {
+        people: [],
         posts: []
     };
 
@@ -52,9 +55,23 @@ class Page extends Component {
                         marginLeft: -422
                     }}
                 >
-                    <Feed
-                        posts={this.props.posts}
-                    />
+
+                    <Feed posts={this.props.posts} />
+
+                </BoundingBox>
+
+                <BoundingBox
+                    style={{
+                        position: 'absolute',
+                        left: '50%',
+                        top: 73,
+                        width: 186,
+                        marginLeft: -625
+                    }}
+                >
+
+                    <Following people={this.props.people} />
+
                 </BoundingBox>
 
             </BoundingBox>
