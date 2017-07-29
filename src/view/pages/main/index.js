@@ -34,7 +34,7 @@ class Page extends Component {
 
                 <BoundingBox
                     style={{
-                        position: 'absolute',
+                        position: 'fixed',
                         left: 0,
                         top: 0,
                         width: '100%',
@@ -52,7 +52,8 @@ class Page extends Component {
                         left: '50%',
                         top: 56,
                         width: 844,
-                        marginLeft: -422
+                        marginLeft: -422,
+                        zIndex: -1
                     }}
                 >
 
@@ -62,7 +63,7 @@ class Page extends Component {
 
                 <BoundingBox
                     style={{
-                        position: 'absolute',
+                        position: 'fixed',
                         left: '50%',
                         top: 73,
                         width: 186,
