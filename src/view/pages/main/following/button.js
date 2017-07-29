@@ -8,7 +8,7 @@ class Button extends Component {
     static propTypes = {
         text: React.PropTypes.string,
         image: React.PropTypes.string,
-        bold: React.PropTypes.boolean,
+        bold: React.PropTypes.bool,
         onClick: React.PropTypes.func
     };
 

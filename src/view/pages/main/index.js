@@ -9,7 +9,7 @@ import {Following} from './following';
 class Page extends Component {
 
     static propTypes = {
-        people: React.PropTypes.people,
+        people: React.PropTypes.array,
         posts: React.PropTypes.array
     };
 

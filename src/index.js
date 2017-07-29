@@ -5,7 +5,7 @@ import {loadFont} from './utils/font-loader';
 import {loadAsset} from './utils/asset-loader';
 
 import {Page} from './view/pages/main';
-
+import {Biography} from './view/pages/main/biography';
 
 class Index extends Component {
 
@@ -26,6 +26,7 @@ class Index extends Component {
                     people={require('../fixtures/people.json')}
                     posts={require('../fixtures/feed.json')}
                 />
+                <Biography {...require('../fixtures/biography.json')} />
             </div>
         );
     }

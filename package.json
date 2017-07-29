@@ -6,6 +6,7 @@
     "description": "A feed composed of quotes of famous people - an academic project in digital humanities",
     "dependencies": {
         "react": "^15.6.1",
+        "react-addons-transition-group": "^15.6.0",
         "react-dom": "^15.6.1"
     },
     "scripts": {
