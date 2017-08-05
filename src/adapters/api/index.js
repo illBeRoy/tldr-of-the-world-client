@@ -40,6 +40,17 @@ class Adapter {
         return result.data.map(result => {return {name: result[0], score: result[1]}});
     }
 
+    /**
+     * Get a list of randomly seleted names.
+     * @param count {int} size of the list
+     * @returns {Promise.<[string]>}
+     */
+    async random(count = 10) {
+
+        const result = await this._axios.get(`/people/random?count=${encodeURIComponent(count)}`);
+        return result.data;
+    }
+
 }
 
 

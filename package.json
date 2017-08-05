@@ -8,9 +8,13 @@
         "axios": "^0.16.2",
         "babel-polyfill": "^6.23.0",
         "deep-equal": "^1.0.1",
+        "lodash.throttle": "^4.1.1",
+        "lodash.uniq": "^4.5.0",
+        "lodash.without": "^4.4.0",
         "react": "^15.6.1",
         "react-addons-transition-group": "^15.6.0",
         "react-dom": "^15.6.1",
+        "react-rotating-text": "^1.2.0",
         "simple-array-diff": "^1.1.0",
         "vis": "^4.20.1"
     },

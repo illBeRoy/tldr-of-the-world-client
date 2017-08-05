@@ -47,8 +47,14 @@ class Suggestions extends Component {
         this.setState({selectedItem: (((this.state.selectedItem - 1 + this.props.list.length) % this.props.list.length + this.props.list.length)) % this.props.list.length});
     }
 
+    selectAt(index) {
+
+      this.setState({selectedItem: index});
+    }
+
     render() {
 
+          console.log(this.props.list);
         return (
 
             <div
@@ -61,6 +67,7 @@ class Suggestions extends Component {
                     border: '1px solid #CCCFD4',
                     boxSizing: 'border-box',
                     zIndex: 10,
+                    cursor: 'default',
                     display: this.props.list.length > 0? 'block': 'none'
                 }}
             >
@@ -69,6 +76,8 @@ class Suggestions extends Component {
                     this.props.list.map((item, key) =>
                         <div
                             key={key}
+                            onMouseOver={() => this.selectAt(key)}
+                            onClick={() => this.props.onSelect(item)}
                             style={{
                                 position: 'absolute',
                                 left: 0,

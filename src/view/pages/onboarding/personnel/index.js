@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import throttle from 'lodash.throttle';
+import without from 'lodash.without';
+import uniq from 'lodash.uniq';
+import RotatingText from 'react-rotating-text';
 
 import {BoundingBox} from '../../../../utils/layout';
 import {Bubbles} from '../../../components/bubbles';
@@ -11,16 +15,34 @@ class Personnel extends Component {
         apiAdapter: React.PropTypes.any
     };
 
+    static propTypes = {
+        groupSizeLimit: React.PropTypes.number
+    };
+
+    static defaultProps = {
+        groupSizeLimit: 50
+    };
+
     constructor(props) {
 
         super(props);
 
         this.state = {};
-        this.state.inputRef = {};
 
         this.state.suggestions = [];
         this.state.selected = [];
         this.state.morePeople = [];
+        this.state.randomSuggestions = ['Who are we gonna look for today?'];
+
+        this.inputRef = {};
+
+        this.updateSuggestionsList = throttle(this.updateSuggestionsList.bind(this), 1000);
+    }
+
+    async componentWillMount() {
+
+        const randomSuggestions = await this.context.apiAdapter.random(50);
+        this.setState({randomSuggestions});
     }
 
     onSuggestionsChange(key) {
@@ -38,12 +60,62 @@ class Personnel extends Component {
                     break;
 
                 case 'Enter':
-                    alert(this.suggestionsRef.selectedItem);
+                    this.addItemToGroup(this.suggestionsRef.selectedItem);
                     break;
 
             }
 
         } catch (err) {}
+    }
+
+    async updateSuggestionsList(query) {
+
+        let suggestions;
+
+        if (query == '') {
+
+            suggestions = [];
+        } else {
+
+            suggestions = await this.context.apiAdapter.search(query);
+            suggestions = without(suggestions, ...this.state.selected);
+        }
+
+        this.setState({suggestions});
+    }
+
+    addItemToGroup(item) {
+
+        if (this.state.selected.length >= this.props.groupSizeLimit) {
+
+            return;
+        }
+
+        this.inputRef.value = '';
+        this.setState({
+            selected: uniq(this.state.selected.concat([item])),
+            suggestions: [],
+            morePeople: without(this.state.morePeople, item)
+        });
+
+        this.updateNeighbours(item);
+    }
+
+    removeItemFromGroup(item) {
+
+        this.setState({
+            selected: without(this.state.selected, item)
+        });
+    }
+
+    async updateNeighbours(item) {
+
+        let neighbours = await this.context.apiAdapter.suggest(item);
+        neighbours = neighbours.map(x => x.name);
+        neighbours = without(neighbours, ...this.state.selected, ...this.state.morePeople);
+        neighbours = neighbours.slice(0, 5);
+
+        this.setState({morePeople: without(uniq(this.state.morePeople.concat(neighbours)), item)});
     }
 
     render() {
@@ -82,8 +154,9 @@ class Personnel extends Component {
                     <input
                         type="text"
                         placeholder="Search people"
-                        ref={ref => this.state.inputRef != ref? this.setState({inputRef: ref}) : null}
+                        ref={ref => this.inputRef = ref}
                         onKeyDown={(e) => this.onSuggestionsChange(e.key)}
+                        onInput={(e) => this.updateSuggestionsList(e.target.value)}
                         style={{
                             height: 30,
                             width: '50%',
@@ -94,18 +167,51 @@ class Personnel extends Component {
                             outline: 'none',
                             fontSize: 14,
                             paddingLeft: 15,
-                            boxSizing: 'border-box'
+                            boxSizing: 'border-box',
+                            userSelect: 'none'
                         }}
                     />
 
                     <Suggestions
                         ref={ref => this.suggestionsRef != ref? this.suggestionsRef = ref : null}
                         list={this.state.suggestions}
-                        anchorX={this.state.inputRef.offsetLeft || 0}
-                        anchorY={(this.state.inputRef.offsetTop + this.state.inputRef.offsetHeight) || 0}
-                        width={this.state.inputRef.offsetWidth || 0}
-
+                        anchorX={this.inputRef.offsetLeft || 0}
+                        anchorY={(this.inputRef.offsetTop + this.inputRef.offsetHeight) || 0}
+                        width={this.inputRef.offsetWidth || 0}
+                        onSelect={this.addItemToGroup.bind(this)}
                     />
+
+                </BoundingBox>
+
+                <BoundingBox
+                    style={{
+                        width: '100%',
+                        padding: 10,
+                        boxSizing: 'border-box',
+                        lineHeight: '30px'
+                    }}
+                >
+
+                    {this.state.selected.map((name, key) =>
+                        <span
+                            key={key}
+                            onClick={() => this.removeItemFromGroup(name)}
+                            style={{
+                                display: 'inline-block',
+                                padding: '0 10px',
+                                backgroundColor: '#F92C55',
+                                color: 'white',
+                                fontSize: 14,
+                                cursor: 'pointer',
+                                margin: '1px 5px 1px 0',
+                                borderRadius: 20,
+                                boxSizing: 'border-box',
+                                whiteSpace: 'nowrap'
+                            }}
+                        >
+                            {name}
+                        </span>
+                    )}
 
                 </BoundingBox>
 
@@ -116,7 +222,23 @@ class Personnel extends Component {
                     }}
                 >
 
-                    <Bubbles values={this.state.morePeople} backgroundColor="#A713FE" />
+                    <Bubbles values={this.state.morePeople} backgroundColor="#A713FE" onSelect={this.addItemToGroup.bind(this)} />
+
+                    {
+                        this.state.morePeople.length == 0?
+                            <RotatingText
+                                items={this.state.randomSuggestions}
+                                style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    top: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    fontSize: 20,
+                                    color: '#9d4fcc'
+                                }}
+                            /> :
+                            null
+                    }
 
                 </BoundingBox>
 
