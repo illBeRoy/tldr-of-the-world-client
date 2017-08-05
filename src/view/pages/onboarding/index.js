@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import {BoundingBox} from '../../../utils/layout';
 import {Logo} from './logo';
+import {Personnel} from './personnel';
 
 
 class Page extends Component {
@@ -14,6 +15,27 @@ class Page extends Component {
         people: []
     };
 
+    constructor(props) {
+
+        super(props);
+
+        this.state = {};
+        this.state.view = 'INTRO';
+    }
+
+    componentDidMount() {
+
+        setTimeout(() => {
+
+            this.changeView('PERSONNEL');
+        }, 2000);
+    }
+
+    changeView(view) {
+
+        this.setState({view});
+    }
+
     render() {
 
         return (
@@ -25,15 +47,10 @@ class Page extends Component {
                     top: 0,
                     width: '100%',
                     height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignContent: 'center',
-                    justifyContent: 'center',
-                    cursor: 'default'
                 }}
             >
 
-                <Logo/>
+                {this.state.view == 'INTRO'?  <Logo/> : <Personnel/>}
 
             </BoundingBox>
         )

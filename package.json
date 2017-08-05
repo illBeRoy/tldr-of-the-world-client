@@ -6,6 +6,8 @@
     "description": "A feed composed of quotes of famous people - an academic project in digital humanities",
     "dependencies": {
         "axios": "^0.16.2",
+        "babel-polyfill": "^6.23.0",
+        "deep-equal": "^1.0.1",
         "react": "^15.6.1",
         "react-addons-transition-group": "^15.6.0",
         "react-dom": "^15.6.1",

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {BoundingBox} from '../../../../utils/layout';
-import {Animatable} from "../../../components/animatable/index";
+import {Animatable} from '../../../components/animatable';
 import {Text} from './text';
 import {Icon} from './icon';
 
