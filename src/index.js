@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {loadFont} from './utils/font-loader';
 import {loadAsset} from './utils/asset-loader';
 
-import {Page} from './view/pages/personnel';
+import {Page} from './view/pages/onboarding';
 
 
 class Index extends Component {

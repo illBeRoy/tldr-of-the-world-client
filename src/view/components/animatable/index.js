@@ -5,12 +5,22 @@ import ReactTransitionGroup from 'react-addons-transition-group';
 
 class Animatable extends Component {
 
+    static propTypes = {
+        noIntroAnimation: React.PropTypes.bool,
+        noOutroAnimation: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        noIntroAnimation: false,
+        noOutroAnimation: false
+    };
+
     render() {
 
         return (
 
             <ReactTransitionGroup>
-                <AnimatableInner>
+                <AnimatableInner noIntroAnimation={this.props.noIntroAnimation} noOutroAnimation={this.props.noOutroAnimation}>
                     {this.props.children}
                 </AnimatableInner>
             </ReactTransitionGroup>
@@ -21,26 +31,54 @@ class Animatable extends Component {
 
 class AnimatableInner extends Component {
 
+    static propTypes = {
+        noIntroAnimation: React.PropTypes.bool,
+        noOutroAnimation: React.PropTypes.bool
+    };
+
+    static defaultProps = {
+        noIntroAnimation: false,
+        noOutroAnimation: false
+    };
+
     constructor(props) {
 
         super(props);
         this.state = {};
-        this.state.keyframe = 0;
+        this.state.keyframe = this.props.noIntroAnimation? 1 : 0;
     }
 
     componentWillAppear(callback) {
 
-        this.applyTransition(0, 1, callback);
+        if (!this.props.noIntroAnimation) {
+
+            this.applyTransition(0, 1, callback);
+        } else {
+
+            callback();
+        }
     }
 
     componentWillEnter(callback) {
 
-        this.applyTransition(0, 1, callback);
+        if (!this.props.noIntroAnimation) {
+
+            this.applyTransition(0, 1, callback);
+        } else {
+
+            callback();
+        }
     }
 
     componentWillLeave(callback) {
 
-        this.applyTransition(1, 0, callback);
+        if (!this.props.noOutroAnimation) {
+
+            this.applyTransition(1, 0, callback);
+        } else {
+
+            callback();
+        }
     }
 
     applyTransition(from, to, callback) {

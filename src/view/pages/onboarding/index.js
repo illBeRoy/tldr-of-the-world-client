@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {BoundingBox} from '../../../utils/layout';
+import {Logo} from './logo';
 
 
 class Page extends Component {
@@ -25,16 +26,14 @@ class Page extends Component {
                     width: '100%',
                     height: '100%',
                     display: 'flex',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                    cursor: 'default'
                 }}
             >
 
-                <BoundingBox style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    
-                </BoundingBox>
-
-                <BoundingBox>
-                </BoundingBox>
+                <Logo/>
 
             </BoundingBox>
         )
