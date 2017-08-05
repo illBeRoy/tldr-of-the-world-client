@@ -5,9 +5,12 @@
     "author": "Roy Sommer <roy@sommer.co.il>",
     "description": "A feed composed of quotes of famous people - an academic project in digital humanities",
     "dependencies": {
+        "axios": "^0.16.2",
         "react": "^15.6.1",
         "react-addons-transition-group": "^15.6.0",
-        "react-dom": "^15.6.1"
+        "react-dom": "^15.6.1",
+        "simple-array-diff": "^1.1.0",
+        "vis": "^4.20.1"
     },
     "scripts": {
         "build-html": "create-html --script 'index.js'  --output 'dist/app/index.html' --title 'famous-quote-feed-client' --body '<div id=\"root\"></div>'",

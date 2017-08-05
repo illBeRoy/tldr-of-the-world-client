@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import {loadFont} from './utils/font-loader';
 import {loadAsset} from './utils/asset-loader';
 
-import {Page} from './view/pages/main';
-import {Biography} from './view/pages/main/biography';
+import {Page} from './view/pages/personnel';
+
 
 class Index extends Component {
 
@@ -22,11 +22,7 @@ class Index extends Component {
                     height: '100%'
                 }}
             >
-                <Page
-                    people={require('../fixtures/people.json')}
-                    posts={require('../fixtures/feed.json')}
-                />
-                <Biography {...require('../fixtures/biography.json')} />
+                <Page />
             </div>
         );
     }
