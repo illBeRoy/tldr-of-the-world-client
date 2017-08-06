@@ -201,7 +201,7 @@ class Personnel extends Component {
                     }}
                 >
 
-                    {['x']this.state.selected.map((name, key) =>
+                    {this.state.selected.map((name, key) =>
                         <span
                             key={key}
                             onClick={() => this.removeItemFromGroup(name)}
