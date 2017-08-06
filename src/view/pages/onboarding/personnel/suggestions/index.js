@@ -54,7 +54,6 @@ class Suggestions extends Component {
 
     render() {
 
-          console.log(this.props.list);
         return (
 
             <div

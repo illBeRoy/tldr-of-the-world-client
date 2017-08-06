@@ -19,7 +19,7 @@
         "vis": "^4.20.1"
     },
     "scripts": {
-        "build-html": "create-html --script 'index.js'  --output 'dist/app/index.html' --title 'famous-quote-feed-client' --body '<div id=\"root\"></div>'",
+        "build-html": "create-html --script 'index.js'  --output 'dist/app/index.html' --title 'TL;DR of the World' --body '<div id=\"root\"></div>'",
         "build-compile": "webpack bin/index.js dist/app/index.js",
         "build-assets": "cp -r assets dist/assets",
         "compile": "babel src --out-dir bin --source-maps",

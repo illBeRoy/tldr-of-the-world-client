@@ -4,6 +4,7 @@ import without from 'lodash.without';
 import uniq from 'lodash.uniq';
 import RotatingText from 'react-rotating-text';
 
+import {loadAsset} from '../../../../utils/asset-loader';
 import {BoundingBox} from '../../../../utils/layout';
 import {Bubbles} from '../../../components/bubbles';
 import {Suggestions} from './suggestions';
@@ -60,7 +61,10 @@ class Personnel extends Component {
                     break;
 
                 case 'Enter':
-                    this.addItemToGroup(this.suggestionsRef.selectedItem);
+                    if (this.suggestionsRef.selectedItem) {
+
+                        this.addItemToGroup(this.suggestionsRef.selectedItem);
+                    }
                     break;
 
             }
@@ -118,9 +122,13 @@ class Personnel extends Component {
         this.setState({morePeople: without(uniq(this.state.morePeople.concat(neighbours)), item)});
     }
 
+    clearNeighbours() {
+
+        this.setState({morePeople: this.state.morePeople.slice(-5)});
+    }
+
     render() {
 
-        console.log(this.context.apiAdapter);
         return (
 
             <BoundingBox
@@ -188,11 +196,12 @@ class Personnel extends Component {
                         width: '100%',
                         padding: 10,
                         boxSizing: 'border-box',
-                        lineHeight: '30px'
+                        lineHeight: '30px',
+                        userSelect: 'none'
                     }}
                 >
 
-                    {this.state.selected.map((name, key) =>
+                    {['x']this.state.selected.map((name, key) =>
                         <span
                             key={key}
                             onClick={() => this.removeItemFromGroup(name)}
@@ -237,6 +246,64 @@ class Personnel extends Component {
                                     color: '#9d4fcc'
                                 }}
                             /> :
+                            null
+                    }
+
+                    {
+                        this.state.selected.length >= 1?
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    right: 25,
+                                    bottom: 25,
+                                    width: 130,
+                                    height: 50,
+                                    lineHeight: '50px',
+                                    fontSize: '20px',
+                                    color: '#FFFFFF',
+                                    backgroundColor: '#0ed272',
+                                    borderRadius: 25,
+                                    textAlign: 'center',
+                                    cursor: 'pointer',
+                                    userSelect: 'none'
+                                }}
+                            >
+                                Continue
+                            </div> :
+                            null
+                    }
+
+                    {
+                        this.state.morePeople.length > 0?
+                            <div
+                                onClick={this.clearNeighbours.bind(this)}
+                                style={{
+                                    position: 'absolute',
+                                    right: 25 + 130 + 10,
+                                    bottom: 25,
+                                    width: 50,
+                                    height: 50,
+                                    lineHeight: '50px',
+                                    fontSize: '20px',
+                                    backgroundColor: '#d80027',
+                                    borderRadius: 25,
+                                    textAlign: 'center',
+                                    cursor: 'pointer',
+                                    userSelect: 'none'
+                                }}
+                            >
+                                <img
+                                    src={loadAsset('swipe.svg')}
+                                    style={{
+                                        position: 'absolute',
+                                        left: 8,
+                                        top: 9,
+                                        width: 30,
+                                        height: 30,
+                                        objectFit: 'contain'
+                                    }}
+                                />
+                            </div> :
                             null
                     }
 
