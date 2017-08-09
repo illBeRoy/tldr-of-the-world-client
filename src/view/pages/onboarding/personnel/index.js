@@ -256,12 +256,12 @@ class Personnel extends Component {
                     }
 
                     {
-                        this.state.selected.length >= 1?
+                        this.state.selected.length >= 5?
                             <div
                                 onClick={this.onContinueButtonClick.bind(this)}
                                 style={{
                                     position: 'absolute',
-                                    right: 25,
+                                    right: 25 + 50 + 10,
                                     bottom: 25,
                                     width: 130,
                                     height: 50,
@@ -286,7 +286,7 @@ class Personnel extends Component {
                                 onClick={this.clearNeighbours.bind(this)}
                                 style={{
                                     position: 'absolute',
-                                    right: 25 + 130 + 10,
+                                    right: 25,
                                     bottom: 25,
                                     width: 50,
                                     height: 50,
