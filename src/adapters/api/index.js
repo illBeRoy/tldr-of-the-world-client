@@ -51,6 +51,37 @@ class Adapter {
         return result.data;
     }
 
+    /**
+     * Gets feed information (id and seed) for a given group of people.
+     * @param people {[string]} names of people, should match (case sensitive) the records in the db
+     * @returns {Promise.<{feed_id: string, people: [string], following: [string]}>} feed description, where feed id
+     *          is used for pagination, people contain the enriched list of people, and following contain the original
+     *          list of people
+     * @throws {Error} if the feed was not created properly (probably invalid list of people)
+     */
+    async getFeed(people) {
+
+        const result = await this._axios.post('/feeds', {people});
+        return result.data;
+    }
+
+    /**
+     * Feed pagination by id.
+     * @param feed_id {string} feed identifier
+     * @param page {int} page to get (positive integer)
+     * @returns {Promise.<{page: int, quotes: [{quote: string, author: string}]}>} page: index of the returned page.
+     *          quotes: a list of the quotes included in the page, which consist of {quote, author}
+     */
+    async getFeedPage(feed_id, page = 0) {
+
+        const result = await this._axios.get(`/feeds/${encodeURIComponent(feed_id)}?page=${encodeURIComponent(page)}`);
+
+        return {
+            page: result.data.page,
+            quotes: result.data.quotes.map(quoteDetails => {return {quote: quoteDetails[0], author: quoteDetails[1]}})
+        }
+    }
+
 }
 
 

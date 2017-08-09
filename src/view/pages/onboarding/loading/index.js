@@ -1,21 +1,10 @@
 import React, {Component} from 'react';
 
 import {BoundingBox} from '../../../../utils/layout';
-import {Animatable} from '../../../components/animatable';
-import {Text} from './text';
-import {Icon} from './icon';
+import {loadAsset} from '../../../../utils/asset-loader';
 
 
-class Logo extends Component {
-
-    static propTypes = {
-        onAnimationEnd: React.PropTypes.func.isRequired
-    };
-
-    componentDidMount() {
-
-        setTimeout(this.props.onAnimationEnd, 2000);
-    }
+class Loader extends Component {
 
     render() {
 
@@ -30,19 +19,22 @@ class Logo extends Component {
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    alignContent: 'center',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'default'
                 }}
             >
 
-                <Animatable noOutroAnimation>
-
-                    <Text/>
-
-                    <Icon/>
-
-                </Animatable>
+                <span
+                    style={{
+                        color: '#9013FE',
+                        textAlign: 'center',
+                        fontSize: 14
+                    }}
+                >
+                    <img src={loadAsset('loader.gif')} style={{width: 50, height: 50, marginBottom: 10}} /> < br/>
+                    We're working on it!
+                </span>
 
             </BoundingBox>
         )
@@ -51,4 +43,4 @@ class Logo extends Component {
 }
 
 
-export {Logo}
+export {Loader}

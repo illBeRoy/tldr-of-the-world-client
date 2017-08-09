@@ -17,7 +17,8 @@ class Personnel extends Component {
     };
 
     static propTypes = {
-        groupSizeLimit: React.PropTypes.number
+        groupSizeLimit: React.PropTypes.number,
+        onPeopleChosen: React.PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -70,6 +71,11 @@ class Personnel extends Component {
             }
 
         } catch (err) {}
+    }
+
+    onContinueButtonClick() {
+
+        this.props.onPeopleChosen(this.state.selected);
     }
 
     async updateSuggestionsList(query) {
@@ -252,6 +258,7 @@ class Personnel extends Component {
                     {
                         this.state.selected.length >= 1?
                             <div
+                                onClick={this.onContinueButtonClick.bind(this)}
                                 style={{
                                     position: 'absolute',
                                     right: 25,
