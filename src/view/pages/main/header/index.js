@@ -6,7 +6,9 @@ import {loadAsset} from '../../../../utils/asset-loader';
 
 class Header extends Component {
 
-    static propTypes = {};
+    static propTypes = {
+        onFilterChange: React.PropTypes.func.isRequired
+    };
 
     static defaultProps = {};
 
@@ -44,6 +46,7 @@ class Header extends Component {
                     <input
                         type="text"
                         placeholder="Search feed"
+                        onInput={(e) => this.props.onFilterChange(e.target.value)}
                         style={{
                             position: 'absolute',
                             left: 0,

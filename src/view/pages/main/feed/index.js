@@ -7,7 +7,8 @@ import {Card} from './card';
 class Feed extends Component {
 
     static propTypes = {
-        posts: React.PropTypes.array
+        posts: React.PropTypes.array,
+        onClickProfile: React.PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -22,7 +23,7 @@ class Feed extends Component {
                 key={key}
                 style={{marginTop: 17}}
             >
-                <Card authorImage={post.authorImage} author={post.author} text={post.text} />
+                <Card authorImage={post.authorImage} author={post.author} text={post.text} onClickAuthor={() => this.props.onClickProfile(post.author)} />
             </span>
         )
     }
@@ -35,25 +36,25 @@ class Feed extends Component {
                 style={{
                     position: 'relative',
                     display: 'flex',
-                    flexDirection: 'column-reverse',
+                    flexDirection: 'column',
                     boxSizing: 'border-box'
                 }}
             >
+
+                {this.props.posts.map(this.renderCard.bind(this))}
 
                 <div
                     style={{
                         position: 'relative',
                         width: '100%',
                         height: 11,
-                        marginTop: 17,
+                        margin: '17px 0',
                         backgroundImage: `url(${loadAsset('three-dots.svg')})`,
                         backgroundPosition: 'center',
                         backgroundSize: 'contain',
                         backgroundRepeat: 'no-repeat'
                     }}
                 />
-
-                {this.props.posts.map(this.renderCard.bind(this))}
 
             </main>
         );

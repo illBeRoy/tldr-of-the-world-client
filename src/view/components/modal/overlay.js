@@ -18,7 +18,8 @@ class Overlay extends Component {
                     opacity: this.props.keyframe,
                     transition: '.6s ease'
                 }}
-            />
+                onClick={this.props.onClose}
+            ></div>
         )
     }
 

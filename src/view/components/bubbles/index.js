@@ -75,6 +75,10 @@ class Bubbles extends Component {
                     repulsion: {
                         nodeDistance: 70
                     }
+                },
+                interaction: {
+                    zoomView: false,
+                    dragView: false
                 }
             },
         );

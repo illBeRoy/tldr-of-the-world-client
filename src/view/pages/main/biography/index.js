@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import {Modal} from '../../../components/modal';
 import {BoundingBox} from '../../../../utils/layout';
+import {loadAsset} from '../../../../utils/asset-loader';
 
 
 class Biography extends Component {
@@ -10,19 +11,45 @@ class Biography extends Component {
         title: React.PropTypes.string,
         image: React.PropTypes.string,
         description: React.PropTypes.string,
-        buttonLink: React.PropTypes.string
+        buttonLink: React.PropTypes.string,
+        isLoading: React.PropTypes.bool,
+        onClickOutside: React.PropTypes.func
+    };
+
+    static defaultProps = {
+        isLoading: false,
+        onClickOutside: () => {}
     };
 
     visitProfileLink() {
 
+        this.props.onClickOutside();
         window.open(this.props.buttonLink, '_blank');
     }
 
-    render() {
+    renderLoading() {
+
+        return (
+            <img
+                src={loadAsset('loader.gif')}
+                style={{
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    marginTop: -25,
+                    marginLeft: -25,
+                    width: 50,
+                    height: 50
+                }}
+            />
+        )
+    }
+
+    renderContent() {
 
         return (
 
-            <Modal modalWidth={510} modalHeight={485}>
+            <BoundingBox>
                 <BoundingBox
                     style={{
                         position: 'absolute',
@@ -31,7 +58,8 @@ class Biography extends Component {
                         width: '100%',
                         height: 154,
                         overflow: 'hidden',
-                        backgroundColor: 'black'
+                        backgroundColor: 'black',
+                        userSelect: 'none'
                     }}
                 >
 
@@ -91,13 +119,13 @@ class Biography extends Component {
                         top: 250,
                         bottom: 80,
                         color: '#7C7C7C',
-                        fontSize: 18,
+                        fontSize: 14,
                         cursor: 'default',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis'
                     }}
                 >
-                    {this.props.description}
+                    {`${this.props.description.substr(0, 600)}...`}
                 </div>
 
                 <button
@@ -119,6 +147,18 @@ class Biography extends Component {
                 >
                     Learn more on Wikipedia
                 </button>
+            </BoundingBox>
+
+        )
+    }
+
+    render() {
+
+        return (
+
+            <Modal modalWidth={510} modalHeight={485} onClickOutside={this.props.onClickOutside}>
+
+                {this.props.isLoading? this.renderLoading() : this.renderContent()}
 
             </Modal>
         );

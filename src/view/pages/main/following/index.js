@@ -8,7 +8,9 @@ import {loadAsset} from '../../../../utils/asset-loader';
 class Following extends Component {
 
     static propTypes = {
-        people: React.PropTypes.array
+        people: React.PropTypes.array,
+        onSelectPerson: React.PropTypes.func.isRequired,
+        onFollowMore: React.PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -20,7 +22,7 @@ class Following extends Component {
         return (
 
             <BoundingBox key={key} style={{marginBottom: 20}}>
-                <Button image={item.image} text={item.name} />
+                <Button image={item.image} text={item.name} onClick={() => this.props.onSelectPerson(item.name)} />
             </BoundingBox>
         )
     }
@@ -55,7 +57,7 @@ class Following extends Component {
                         text="Follow more"
                         bold={true}
                         image={loadAsset('green-circle-with-plus.svg')}
-                        onClick={()=>{}}
+                        onClick={this.props.onFollowMore}
                     />
                 </BoundingBox>
 

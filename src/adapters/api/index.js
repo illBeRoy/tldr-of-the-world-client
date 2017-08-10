@@ -40,6 +40,28 @@ class Adapter {
         return result.data.map(result => {return {name: result[0], score: result[1]}});
     }
 
+    async biography(name) {
+
+        const result = await this._axios.get(`/people/${encodeURIComponent(name)}`);
+        return {
+            name: result.data.name,
+            image: result.data.image_url,
+            summary: result.data.summery,
+            link: result.data.wikipedia_url
+        }
+    }
+
+    /**
+     * Get pictures for a given list of people.
+     * @param names {[string]}
+     * @returns {Promise.<*>}
+     */
+    async pictures(names) {
+
+        const result = await this._axios.get(`/people/pictures?names=${encodeURIComponent(names.join(','))}`);
+        return result.data;
+    }
+
     /**
      * Get a list of randomly seleted names.
      * @param count {int} size of the list
@@ -78,7 +100,7 @@ class Adapter {
 
         return {
             page: result.data.page,
-            quotes: result.data.quotes.map(quoteDetails => {return {quote: quoteDetails[0], author: quoteDetails[1]}})
+            quotes: result.data.quotes.map(quoteDetails => {return {text: quoteDetails[0], author: quoteDetails[1]}})
         }
     }
 

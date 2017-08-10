@@ -8,7 +8,8 @@ class Card extends Component {
     static propTypes = {
         text: React.PropTypes.string,
         author: React.PropTypes.string,
-        authorImage: React.PropTypes.string
+        authorImage: React.PropTypes.string,
+        onClickAuthor: React.PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -55,10 +56,12 @@ class Card extends Component {
                 </div>
 
                 <div
+                    onClick={this.props.onClickAuthor}
                     style={{
                         position: 'relative',
                         height: 40,
-                        width: '100%'
+                        width: '100%',
+                        cursor: 'pointer'
                     }}
                 >
 
@@ -70,7 +73,7 @@ class Card extends Component {
                             width: 40,
                             height: 40,
                             borderRadius: '50%',
-                            backgroundImage: `url(${this.props.authorImage})`,
+                            backgroundImage: `url(${this.props.authorImage || Card.defaultProps.authorImage})`,
                             backgroundPosition: 'center',
                             backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat'

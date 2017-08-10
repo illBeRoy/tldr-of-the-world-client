@@ -6,7 +6,7 @@ import React from 'react';
  * @param props {object} props to pass
  * @constructor
  */
-const BoundingBox = (props) => <div style={props.style || {}}> {props.children} </div>;
+const BoundingBox = (props) => <div {...props} > {props.children} </div>;
 
 
 export {BoundingBox};

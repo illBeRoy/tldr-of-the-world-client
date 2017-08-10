@@ -37,7 +37,7 @@ class Button extends Component {
             >
 
                 <img
-                    src={this.props.image}
+                    src={this.props.image || Button.defaultProps.image}
                     style={{
                         width: 40,
                         height: 40,

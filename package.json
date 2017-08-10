@@ -8,6 +8,7 @@
         "axios": "^0.16.2",
         "babel-polyfill": "^6.23.0",
         "deep-equal": "^1.0.1",
+        "lodash.debounce": "^4.0.8",
         "lodash.throttle": "^4.1.1",
         "lodash.uniq": "^4.5.0",
         "lodash.without": "^4.4.0",
@@ -19,13 +20,14 @@
         "vis": "^4.20.1"
     },
     "scripts": {
-        "build-html": "create-html --script 'index.js'  --output 'dist/app/index.html' --title 'TL;DR of the World' --body '<div id=\"root\"></div>'",
-        "build-compile": "webpack bin/index.js dist/app/index.js",
+        "build-html": "create-html --script 'index.js'  --output 'dist/index.html' --title 'TL;DR of the World' --head '<link rel=\"icon\" href=\"/favicon.ico\" type=\"image/x-icon\" />' --body '<div id=\"root\"></div>'",
+        "build-compile": "webpack bin/index.js dist/index.js",
         "build-assets": "cp -r assets dist/assets",
         "compile": "babel src --out-dir bin --source-maps",
         "watch": "autoreload-server --watch-delay 2500 ./dist 3000",
         "start": "node .",
         "build": "yarn run build-clean && yarn run build-assets && yarn run build-compile && yarn run build-html",
+        "build:prod": "export NODE_ENV=production && yarn run build",
         "clean": "rimraf bin/*",
         "build-clean": "rimraf dist/*"
     },

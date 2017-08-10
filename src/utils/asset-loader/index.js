@@ -9,7 +9,7 @@
  */
 const loadAsset = (assetName) => {
 
-    return `../assets/${assetName}`;
+    return `assets/${assetName}`;
 };
 
 

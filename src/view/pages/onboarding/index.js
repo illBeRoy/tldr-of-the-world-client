@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {BoundingBox} from '../../../utils/layout';
+import {Modal} from '../../components/modal';
 import {Logo} from './logo';
 import {Personnel} from './personnel';
 import {Loader} from './loading';
@@ -28,6 +29,7 @@ class Page extends Component {
 
         this.state = {};
         this.state.view = 'INTRO';
+        this.state.alert = '';
     }
 
     changeView(view) {
@@ -47,10 +49,21 @@ class Page extends Component {
         } catch (err) {
 
             this.changeView('PERSONNEL');
+            this.showAlert(`Error: ${err.response.data.message}`);
             return;
         }
 
         this.props.onFeedCreated(feed);
+    }
+
+    showAlert(text) {
+
+        this.setState({alert: text});
+    }
+
+    hideAlert() {
+
+        this.setState({alert: ''});
     }
 
     render() {
@@ -68,6 +81,26 @@ class Page extends Component {
             >
 
                 { this.states[this.state.view]() }
+
+                {
+                    this.state.alert?
+                        <Modal modalWidth={500} modalHeight={100} onClickOutside={this.hideAlert.bind(this)}>
+                            <BoundingBox
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    textAlign: 'center',
+                                    lineHeight: '100px'
+                                }}
+                            >
+                                {this.state.alert}
+                            </BoundingBox>
+                        </Modal> :
+                        null
+                }
 
             </BoundingBox>
         )

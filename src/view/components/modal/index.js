@@ -10,12 +10,14 @@ class Modal extends Component {
 
     static propTypes = {
         modalWidth: React.PropTypes.number,
-        modalHeight: React.PropTypes.number
+        modalHeight: React.PropTypes.number,
+        onClickOutside: React.PropTypes.func
     };
 
     static defaultProps = {
         modalWidth: 100,
-        modalHeight: 100
+        modalHeight: 100,
+        onClickOutside: () => {}
     };
 
     render() {
@@ -24,7 +26,7 @@ class Modal extends Component {
 
             <BoundingBox style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%'}}>
                 <Animatable>
-                    <Overlay />
+                    <Overlay onClose={this.props.onClickOutside} />
                     <Lightbox width={this.props.modalWidth} height={this.props.modalHeight}>
                         {this.props.children}
                     </Lightbox>
