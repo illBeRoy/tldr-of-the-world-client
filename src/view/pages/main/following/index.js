@@ -50,7 +50,7 @@ class Following extends Component {
                     Following:
                 </span>
 
-                {this.props.people.map(this.renderItem.bind(this))}
+                {this.props.people.map(this.renderItem.bind(this)).slice(0, 7)}
 
                 <BoundingBox style={{marginBottom: 20}}>
                     <Button

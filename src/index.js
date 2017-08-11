@@ -98,6 +98,7 @@ class Index extends Component {
     reset() {
 
         this.clearState();
+        window.location.hash = '';
         window.location.reload();
     }
 
