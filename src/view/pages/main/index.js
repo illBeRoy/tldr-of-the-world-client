@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import throttle from 'lodash.throttle';
 
-import {BoundingBox} from '../../../utils/layout';
 import {loadAsset} from '../../../utils/asset-loader'
+import {BoundingBox} from '../../../utils/layout';
+import {Modal} from '../../components/modal';
 import {Header} from './header';
 import {Feed} from './feed';
 import {Following} from './following';
@@ -33,6 +34,7 @@ class Page extends Component {
 
         this.state = {};
         this.state.filter = '';
+        this.state.showClipboard = false;
 
         this.onReachedBottom = throttle(this.onReachedBottom.bind(this), 2000);
     }
@@ -82,6 +84,76 @@ class Page extends Component {
         }
     }
 
+    showClipboard() {
+
+        this.setState({showClipboard: true});
+    }
+
+    hideClipboard() {
+
+        this.setState({showClipboard: false});
+    }
+
+    renderClipboard() {
+
+        return (
+
+            <BoundingBox
+                style={{
+                    position: 'fixed',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 2
+                }}
+            >
+                <Modal modalWidth={500} modalHeight={80} onClickOutside={this.hideClipboard.bind(this)} >
+
+                    <input
+                        type="text"
+                        value={window.location.href}
+                        ref={ref => this.linkRef = ref}
+                        style={{
+                            position: 'absolute',
+                            left: 20,
+                            top: 20,
+                            bottom: 20,
+                            width: 'calc(100% - 70px)',
+                            border: '1px solid #CCCFD4',
+                            borderRadius: 4,
+                            backgroundColor: 'white',
+                            outline: 'none',
+                            fontSize: 14,
+                            paddingLeft: 5,
+                            boxSizing: 'border-box'
+                        }}
+                    />
+
+                    <button
+                        style={{
+                            position: 'absolute',
+                            right: 15,
+                            top: 20,
+                            bottom: 20,
+                            width: 30,
+                            border: 'none',
+                            outline: 'none',
+                            backgroundImage: `url(${loadAsset('clipboard.svg')})`,
+                            backgroundPosition: 'center',
+                            backgroundSize: '20px 20px',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundColor: '#FFFFFF',
+                            cursor: 'pointer'
+                        }}
+                        onClick={() => {this.linkRef.focus(); this.linkRef.select(); window.document.execCommand('copy')}}
+                    />
+
+                </Modal>
+            </BoundingBox>
+        )
+    }
+
     render() {
 
         return (
@@ -110,7 +182,7 @@ class Page extends Component {
                     }}
                 >
 
-                    <Header onFilterChange={this.setFilter.bind(this)} />
+                    <Header onFilterChange={this.setFilter.bind(this)} onLogoClick={this.showClipboard.bind(this)} />
 
                 </BoundingBox>
 
@@ -142,6 +214,8 @@ class Page extends Component {
                     <Following people={this.props.people} onSelectPerson={this.viewBiography.bind(this)} onFollowMore={this.props.onFollowMore} />
 
                 </BoundingBox>
+
+                {this.state.showClipboard? this.renderClipboard() : null}
 
                 {
                     this.state.biography ?

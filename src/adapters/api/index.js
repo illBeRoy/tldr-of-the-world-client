@@ -81,9 +81,23 @@ class Adapter {
      *          list of people
      * @throws {Error} if the feed was not created properly (probably invalid list of people)
      */
-    async getFeed(people) {
+    async createFeed(people) {
 
         const result = await this._axios.post('/feeds', {people});
+        return result.data;
+    }
+
+    /**
+     * Gets feed information (id and seed) for a given feed id.
+     * @param people {[string]} names of people, should match (case sensitive) the records in the db
+     * @returns {Promise.<{feed_id: string, people: [string], following: [string]}>} feed description, where feed id
+     *          is used for pagination, people contain the enriched list of people, and following contain the original
+     *          list of people
+     * @throws {Error} if the feed was not fetched properly (probably doesn't exist)
+     */
+    async getFeed(feed_id) {
+
+        const result = await this._axios.get(`/feeds/${encodeURIComponent(feed_id)}`);
         return result.data;
     }
 
@@ -96,7 +110,7 @@ class Adapter {
      */
     async getFeedPage(feed_id, page = 0) {
 
-        const result = await this._axios.get(`/feeds/${encodeURIComponent(feed_id)}?page=${encodeURIComponent(page)}`);
+        const result = await this._axios.get(`/feeds/${encodeURIComponent(feed_id)}/${encodeURIComponent(page)}`);
 
         return {
             page: result.data.page,

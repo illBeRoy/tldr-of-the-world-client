@@ -46,8 +46,11 @@ class Index extends Component {
 
     componentWillMount() {
 
-        if (this.loadState()) {
+        const oldState = this.getState();
 
+        if (oldState && (oldState.feed.feed_id == window.location.hash.substr(1) || !window.location.hash)) {
+
+            this.loadState();
             this.navigateTo('FEED');
         } else {
 
@@ -103,16 +106,24 @@ class Index extends Component {
         window.localStorage.setItem('@feed.state', JSON.stringify(this.state));
     }
 
-    loadState() {
+    getState() {
 
         const state = window.localStorage.getItem('@feed.state');
         if (state) {
 
-            this.setState(JSON.parse(state));
-            return true;
+            return JSON.parse(state);
         } else {
 
-            return false;
+            return null;
+        }
+    }
+
+    loadState() {
+
+        const state = this.getState();
+        if (state) {
+
+            this.setState(state);
         }
     }
 
@@ -122,6 +133,11 @@ class Index extends Component {
     }
 
     render() {
+
+        if (this.state.feed) {
+
+            window.location.hash = this.state.feed.feed_id;
+        }
 
         return (
 

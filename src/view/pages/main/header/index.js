@@ -7,10 +7,13 @@ import {loadAsset} from '../../../../utils/asset-loader';
 class Header extends Component {
 
     static propTypes = {
-        onFilterChange: React.PropTypes.func.isRequired
+        onFilterChange: React.PropTypes.func.isRequired,
+        onLogoClick: React.PropTypes.func
     };
 
-    static defaultProps = {};
+    static defaultProps = {
+        onLogoClick: () => {}
+    };
 
     render() {
 
@@ -65,7 +68,8 @@ class Header extends Component {
                     />
 
                     <img
-                        src={loadAsset('cog.svg')}
+                        src={loadAsset('world-quote.svg')}
+                        onClick={this.props.onLogoClick}
                         style={{
                             position: 'absolute',
                             right: 0,

@@ -32,6 +32,14 @@ class Page extends Component {
         this.state.alert = '';
     }
 
+    componentWillMount() {
+
+        if (window.location.hash) {
+
+            this.getFeedFlow(window.location.hash.substr(1));
+        }
+    }
+
     changeView(view) {
 
         this.setState({view});
@@ -45,7 +53,26 @@ class Page extends Component {
 
         try {
 
-            feed = await this.context.apiAdapter.getFeed(people)
+            feed = await this.context.apiAdapter.createFeed(people);
+        } catch (err) {
+
+            this.changeView('PERSONNEL');
+            this.showAlert(`Error: ${err.response.data.message}`);
+            return;
+        }
+
+        this.props.onFeedCreated(feed);
+    }
+
+    async getFeedFlow(feedId) {
+
+        this.changeView('LOADING');
+
+        let feed;
+
+        try {
+
+            feed = await this.context.apiAdapter.getFeed(feedId);
         } catch (err) {
 
             this.changeView('PERSONNEL');
