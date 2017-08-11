@@ -17,12 +17,12 @@ const loadFont = (fontFamily, url, ...secondaryUrls) => {
                 font-family: '${fontFamily}';
                 font-style: normal;
                 font-weight: 400;
-                src: url('${url}'), ${secondaryUrls.map((url) => `url(${url}), `).join('')} Arial, System;
+                src: url('${url}');
             }
             
             * {
             
-                font-family: '${fontFamily}';
+                font-family: '${fontFamily}', Arial, sans-serif;
                 -webkit-font-smoothing: antialiased;
             }
         
