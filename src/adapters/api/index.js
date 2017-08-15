@@ -58,6 +58,8 @@ class Adapter {
      */
     async pictures(names) {
 
+        names = names.map(name => name.replace(/,/g, '#/COMMA/'));
+
         const result = await this._axios.get(`/people/pictures?names=${encodeURIComponent(names.join(','))}`);
         return result.data;
     }
