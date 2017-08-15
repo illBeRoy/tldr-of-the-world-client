@@ -18,11 +18,12 @@ class Personnel extends Component {
 
     static propTypes = {
         groupSizeLimit: React.PropTypes.number,
-        onPeopleChosen: React.PropTypes.func.isRequired
+        onPeopleChosen: React.PropTypes.func.isRequired,
+        onShowInfo: React.PropTypes.func.isRequired
     };
 
     static defaultProps = {
-        groupSizeLimit: 50
+        groupSizeLimit: 30
     };
 
     constructor(props) {
@@ -39,6 +40,11 @@ class Personnel extends Component {
         this.inputRef = {};
 
         this.updateSuggestionsList = throttle(this.updateSuggestionsList.bind(this), 1000);
+    }
+
+    get canCreateFeed() {
+
+        return this.state.selected.length >= 5;
     }
 
     async componentWillMount() {
@@ -75,7 +81,10 @@ class Personnel extends Component {
 
     onContinueButtonClick() {
 
-        this.props.onPeopleChosen(this.state.selected);
+        if (this.state.selected.length >= 5) {
+
+            this.props.onPeopleChosen(this.state.selected);
+        }
     }
 
     async updateSuggestionsList(query) {
@@ -195,6 +204,32 @@ class Personnel extends Component {
                         onSelect={this.addItemToGroup.bind(this)}
                     />
 
+                    <button
+                        style={{
+                            position: 'absolute',
+                            right: 50,
+                            top: '50%',
+                            marginTop: -20,
+                            width: 40,
+                            height: 40,
+                            opacity: .7,
+                            cursor: 'pointer',
+                            background: 'transparent',
+                            border: 'none',
+                            outline: 'none'
+                        }}
+                    >
+                        <img
+                            onClick={this.props.onShowInfo}
+                            src={loadAsset('info.svg')}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'contain'
+                            }}
+                        />
+                    </button>
+
                 </BoundingBox>
 
                 <BoundingBox
@@ -256,7 +291,7 @@ class Personnel extends Component {
                     }
 
                     {
-                        this.state.selected.length >= 5?
+                        this.state.morePeople.length > 0 || this.canCreateFeed ?
                             <div
                                 onClick={this.onContinueButtonClick.bind(this)}
                                 style={{
@@ -266,16 +301,20 @@ class Personnel extends Component {
                                     width: 130,
                                     height: 50,
                                     lineHeight: '50px',
-                                    fontSize: '20px',
-                                    color: '#FFFFFF',
-                                    backgroundColor: '#0ed272',
+                                    fontSize: this.canCreateFeed? '20px' : '12px',
+                                    color: this.canCreateFeed? '#FFFFFF' : '#000000',
+                                    backgroundColor: this.canCreateFeed? '#0ed272' : '#B0D2C1',
                                     borderRadius: 25,
                                     textAlign: 'center',
-                                    cursor: 'pointer',
+                                    cursor: this.canCreateFeed? 'pointer' : 'default',
                                     userSelect: 'none'
                                 }}
                             >
-                                Continue
+                                {
+                                    this.canCreateFeed?
+                                        'Continue' :
+                                        `At least ${5 - this.state.selected.length} more`
+                                }
                             </div> :
                             null
                     }

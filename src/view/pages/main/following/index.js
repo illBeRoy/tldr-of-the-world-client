@@ -17,6 +17,11 @@ class Following extends Component {
         people: []
     };
 
+    get listLimit() {
+
+        return 7;
+    }
+
     renderItem(item, key) {
 
         return (
@@ -50,7 +55,24 @@ class Following extends Component {
                     Following:
                 </span>
 
-                {this.props.people.map(this.renderItem.bind(this)).slice(0, 7)}
+                {this.props.people.map(this.renderItem.bind(this)).slice(0, this.listLimit)}
+
+                {
+                    this.props.people.length > this.listLimit ?
+                        <span
+                            style={{
+                                fontSize: 12,
+                                color: '#a8a8a8',
+                                cursor: 'default',
+                                userSelect: 'none',
+                                marginBottom: 20,
+                                textAlign: 'center'
+                            }}
+                        >
+                            (And {this.props.people.length - this.listLimit} more...)
+                        </span> :
+                        null
+                }
 
                 <BoundingBox style={{marginBottom: 20}}>
                     <Button

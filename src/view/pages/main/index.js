@@ -20,7 +20,8 @@ class Page extends Component {
         people: React.PropTypes.array,
         posts: React.PropTypes.array,
         onNextPage: React.PropTypes.func.isRequired,
-        onFollowMore: React.PropTypes.func.isRequired
+        onFollowMore: React.PropTypes.func.isRequired,
+        onShowInfo: React.PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -212,6 +213,43 @@ class Page extends Component {
                 >
 
                     <Following people={this.props.people} onSelectPerson={this.viewBiography.bind(this)} onFollowMore={this.props.onFollowMore} />
+
+                </BoundingBox>
+
+                <BoundingBox
+                    style={{
+                        position: 'fixed',
+                        left: '50%',
+                        bottom: 50,
+                        width: 186,
+                        marginLeft: -625
+                    }}
+                >
+
+                    <button
+                        style={{
+                            position: 'absolute',
+                            left: 0,
+                            bottom: 0,
+                            width: 40,
+                            height: 40,
+                            opacity: .7,
+                            cursor: 'pointer',
+                            background: 'transparent',
+                            border: 'none',
+                            outline: 'none'
+                        }}
+                    >
+                        <img
+                            onClick={this.props.onShowInfo}
+                            src={loadAsset('info.svg')}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'contain'
+                            }}
+                        />
+                    </button>
 
                 </BoundingBox>
 

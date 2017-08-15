@@ -11,6 +11,7 @@ import {Page as FeedPage} from './view/pages/main';
 
 import config from '../config.json';
 
+import {SiteInformation} from "./view/components/site-info/index"
 
 class Index extends Component {
 
@@ -20,8 +21,8 @@ class Index extends Component {
 
     routes = {
         BLANK: () => null,
-        ONBOARDING: () => <OnboardingPage onFeedCreated={this.feedReceived.bind(this)}/>,
-        FEED: () => <FeedPage people={this.state.feed.following.map(name => {return {name, image: this.state.images[name]}})} posts={this.state.posts} onNextPage={this.getNextPage.bind(this)} onFollowMore={this.reset.bind(this)} />
+        ONBOARDING: () => <OnboardingPage onShowInfo={this.showInfo.bind(this)} onFeedCreated={this.feedReceived.bind(this)}/>,
+        FEED: () => <FeedPage onShowInfo={this.showInfo.bind(this)} people={this.state.feed.following.map(name => {return {name, image: this.state.images[name]}})} posts={this.state.posts} onNextPage={this.getNextPage.bind(this)} onFollowMore={this.reset.bind(this)} />
     };
 
     constructor(props) {
@@ -37,6 +38,7 @@ class Index extends Component {
         this.state.posts = [];
         this.state.page = 0;
         this.state.images = {};
+        this.state.showInfo = false;
     }
 
     getChildContext() {
@@ -61,6 +63,16 @@ class Index extends Component {
     navigateTo(route) {
 
         this.setState({route});
+    }
+
+    showInfo() {
+
+        this.setState({showInfo: true});
+    }
+
+    hideInfo() {
+
+        this.setState({showInfo: false});
     }
 
     async feedReceived(feed) {
@@ -152,6 +164,7 @@ class Index extends Component {
                 }}
             >
                 { this.routes[this.state.route]() }
+                { this.state.showInfo? <SiteInformation onClickOutside={this.hideInfo.bind(this)}/> : null }
             </div>
         );
     }

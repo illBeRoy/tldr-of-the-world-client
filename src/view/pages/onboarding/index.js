@@ -14,12 +14,13 @@ class Page extends Component {
     };
 
     static propTypes = {
-        onFeedCreated: React.PropTypes.func.isRequired
+        onFeedCreated: React.PropTypes.func.isRequired,
+        onShowInfo: React.PropTypes.func.isRequired
     };
 
     states = {
         INTRO: () => <Logo onAnimationEnd={() => this.changeView('PERSONNEL')} />,
-        PERSONNEL: () => <Personnel onPeopleChosen={this.createFeedFlow.bind(this)} />,
+        PERSONNEL: () => <Personnel onPeopleChosen={this.createFeedFlow.bind(this)} onShowInfo={this.props.onShowInfo} />,
         LOADING: () => <Loader />
     };
 

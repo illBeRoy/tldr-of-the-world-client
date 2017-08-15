@@ -24,7 +24,7 @@ class Modal extends Component {
 
         return (
 
-            <BoundingBox style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%'}}>
+            <BoundingBox style={{position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', zIndex: 1}}>
                 <Animatable>
                     <Overlay onClose={this.props.onClickOutside} />
                     <Lightbox width={this.props.modalWidth} height={this.props.modalHeight}>
