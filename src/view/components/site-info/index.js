@@ -104,7 +104,7 @@ class SiteInformation extends Component {
                 <br />
                 <br />
 
-                The enitirity of the project is open source and available to the public to learn from and extend upon.
+                The enitirity of the project is open source and available to the public under MIT license to learn from and extend upon.
                 It is available in three github repositories, each having their own documentation: <br/>
 
                 <br />
