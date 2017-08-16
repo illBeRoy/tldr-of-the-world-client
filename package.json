@@ -27,7 +27,7 @@
         "watch": "autoreload-server --watch-delay 2500 ./dist 3000",
         "start": "node .",
         "build": "yarn run build-clean && yarn run build-assets && yarn run build-compile && yarn run build-html",
-        "build:prod": "export NODE_ENV=production && yarn run build",
+        "build:prod": "NODE_ENV=production && yarn run build",
         "clean": "rimraf bin/*",
         "build-clean": "rimraf dist/*"
     },

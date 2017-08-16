@@ -45,7 +45,7 @@ class SiteInformation extends Component {
 
                 <br />
 
-                <span style={{color: 'rgb(150, 150, 150)'}}>An academic project attempting to literally tl;dr the history of the world.</span>
+                <span style={{color: 'rgb(79, 79, 79)'}}>An academic project attempting to literally tl;dr the history of the world.</span>
 
                 <br />
                 <span style={{display: 'inline-block', width: '100%', height: 1, backgroundColor: '#303030'}}></span><br />
@@ -109,9 +109,9 @@ class SiteInformation extends Component {
 
                 <br />
 
-                <a style={this.linkStyle} href="https://github.com/illBeRoy/famous-quote-feed-server" target="_blank">Site server</a><br /><br />
-                <a style={this.linkStyle} href="https://github.com/illBeRoy/famous-quote-feed-client" target="_blank">Site client</a><br /><br />
-                <a style={this.linkStyle} href="https://github.com/illBeRoy/famous-quote-feed-data-explorer" target="_blank">Graph and data</a><br /><br />
+                <a style={this.linkStyle} href="https://github.com/illBeRoy/tldr-of-the-world-server" target="_blank">Site server</a><br /><br />
+                <a style={this.linkStyle} href="https://github.com/illBeRoy/tldr-of-the-world-client" target="_blank">Site client</a><br /><br />
+                <a style={this.linkStyle} href="https://github.com/illBeRoy/tldr-of-the-world-data" target="_blank">Graph and data</a><br /><br />
 
                 </BoundingBox>
 
