@@ -303,7 +303,7 @@ class Personnel extends Component {
                                     lineHeight: '50px',
                                     fontSize: this.canCreateFeed? '20px' : '12px',
                                     color: this.canCreateFeed? '#FFFFFF' : '#000000',
-                                    backgroundColor: this.canCreateFeed? '#0ed272' : '#B0D2C1',
+                                    backgroundColor: this.canCreateFeed? '#0ed272' : 'transparent',
                                     borderRadius: 25,
                                     textAlign: 'center',
                                     cursor: this.canCreateFeed? 'pointer' : 'default',
@@ -313,7 +313,7 @@ class Personnel extends Component {
                                 {
                                     this.canCreateFeed?
                                         'Continue' :
-                                        `At least ${5 - this.state.selected.length} more`
+                                        `Select at least ${5 - this.state.selected.length} more`
                                 }
                             </div> :
                             null

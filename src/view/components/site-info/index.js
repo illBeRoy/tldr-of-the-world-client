@@ -45,9 +45,10 @@ class SiteInformation extends Component {
 
                 <br />
 
-                an academic project attempting to literally tl;dr the history of the world.
+                <span style={{color: 'rgb(150, 150, 150)'}}>An academic project attempting to literally tl;dr the history of the world.</span>
 
                 <br />
+                <span style={{display: 'inline-block', width: '100%', height: 1, backgroundColor: '#303030'}}></span><br />
                 <br />
 
                 Ever since the dawn of mankind, one of the most well documented relics were the quotes of leading figures.
