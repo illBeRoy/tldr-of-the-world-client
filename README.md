@@ -1,9 +1,9 @@
-# TL;DR of the World Server
+# TL;DR of the World Client
 Part of the [TL;DR of the World](https://tldrofthe.world) academic project.  
 
-Client repository can be found [here](https://github.com/illBeRoy/famous-quote-feed-client).
+Server repository can be found [here](https://github.com/illBeRoy/tldr-of-the-world-server).
 
-Whenever "graph" is mentioned in this readme it refers to [another part of the project](https://github.com/illBeRoy/famous-quote-feed-data-explorer).
+Whenever "graph" is mentioned in this readme it refers to [another part of the project](https://github.com/illBeRoy/tldr-of-the-world-data).
 
 ## Client structure
 
